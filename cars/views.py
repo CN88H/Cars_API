@@ -24,3 +24,16 @@ def cars_list(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
         # else:
         #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def car_detail(request, pk):
+    try:
+        car = Car.objects.get(pk=pk)
+        serializer = CarSerializer(Car);
+        return Response(serializer.data)
+
+    except Car.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    # print(pk)
+    # return Response(pk)
